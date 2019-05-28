@@ -1,0 +1,79 @@
+import hector.*
+import cosechas.*
+import wollok.game.*
+
+program FarmvilleGame {
+	//const manzana = new Manzana()
+	//const alpiste = new Alpiste()
+//	CONFIG	
+	game.title("Farmville")
+	game.height(10)
+	game.width(10)
+	game.ground("ground.png")
+//	VISUALES
+	//game.addVisual(alpiste)
+	//game.addVisual(manzana)
+	//game.addVisual(buenosAires)
+	//game.addVisual(villaGesell)
+	game.addVisual(hector)
+	//game.addVisual(veneno)
+//	TECLADO
+	keyboard.h().onPressDo{ game.say(hector, "Hola chiques!") }
+	//keyboard.v().onPressDo{ pepita.volaHacia(villaGesell) }
+	//keyboard.b().onPressDo{ pepita.volaHacia(buenosAires) }
+	keyboard.up().onPressDo{ hector.move(hector.position().up(1)) }
+	keyboard.down().onPressDo{ hector.move(hector.position().down(1)) }
+	keyboard.left().onPressDo{ hector.move(hector.position().left(1)) }
+	keyboard.right().onPressDo{ hector.move(hector.position().right(1)) }
+	keyboard.m().onPressDo{ hector.sembraMaiz() }
+	keyboard.t().onPressDo{ hector.sembraTrigo() }
+	keyboard.o().onPressDo{ hector.sembraTomaco() }
+	//keyboard.m().onPressDo{ roque.dejaManzana() }
+	//keyboard.l().onPressDo{ roque.dejaAlpiste() }
+	keyboard.r().onPressDo{ hector.rega() }
+	
+	//keyboard.any().onPressDo{ if (gameOver.esGameOver()) gameOver.limpiarPantalla()}
+	
+	//COLLIDES
+	/*game.whenCollideDo(manzana, { elemento =>
+		if (elemento == roque) {
+			elemento.levantar(manzana)
+		}
+	})
+	game.whenCollideDo(alpiste, { elemento =>
+		if (elemento == roque) {
+			elemento.levantar(alpiste)
+		}
+	})
+	game.whenCollideDo(pepita, { elemento =>
+		if (elemento == roque) {
+			elemento.darDeComer()
+		}
+	})*/
+	//game.whenCollideDo(veneno, { elemento =>
+	//	if (elemento == roque) elemento.levantar(veneno)
+	//})
+	
+	
+	//game.whenCollideDo(pepita, { cosa => cosa.teChoco(pepita)})
+	/*game.whenCollideDo(manzana, { cosa =>
+		if (cosa == pepita) {
+			cosa.come(manzana)
+		}
+	})
+	game.whenCollideDo(alpiste, { cosa =>
+		if (cosa == pepita) {
+			cosa.come(alpiste)
+		}
+	})*/ //ESTO ES LO MISMO QUE EL COLLIDE DE ARRIBA
+	
+	
+	/*game.whenCollideDo(roque, { cosa =>
+		if (cosa == pepita) {
+			game.say(pepita, "Hola ROQUE!")
+			game.say(pepita, "Hola PEPOTA!")
+		}
+	})*/
+//	START
+	game.start()
+}
