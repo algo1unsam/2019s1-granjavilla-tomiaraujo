@@ -3,7 +3,7 @@ import cosechas.*
 import wollok.game.*
 
 program FarmvilleGame {
-	//const manzana = new Manzana()
+//	const maiz = new Maiz()
 	//const alpiste = new Alpiste()
 //	CONFIG	
 	game.title("Farmville")
@@ -12,7 +12,7 @@ program FarmvilleGame {
 	game.ground("ground.png")
 //	VISUALES
 	//game.addVisual(alpiste)
-	//game.addVisual(manzana)
+//	game.addVisual(maiz)
 	//game.addVisual(buenosAires)
 	//game.addVisual(villaGesell)
 	game.addVisual(hector)
@@ -28,16 +28,19 @@ program FarmvilleGame {
 	keyboard.m().onPressDo{ hector.sembraMaiz() }
 	keyboard.t().onPressDo{ hector.sembraTrigo() }
 	keyboard.o().onPressDo{ hector.sembraTomaco() }
+	keyboard.c().onPressDo{ hector.cosecha() }
+	keyboard.space().onPressDo{ hector.reporte() }
 	//keyboard.m().onPressDo{ roque.dejaManzana() }
 	//keyboard.l().onPressDo{ roque.dejaAlpiste() }
 	keyboard.r().onPressDo{ hector.rega() }
+	keyboard.v().onPressDo{ hector.vende() }
 	
 	//keyboard.any().onPressDo{ if (gameOver.esGameOver()) gameOver.limpiarPantalla()}
 	
 	//COLLIDES
-	/*game.whenCollideDo(manzana, { elemento =>
-		if (elemento == roque) {
-			elemento.levantar(manzana)
+	/*game.whenCollideDo(maiz, { elemento =>
+		if (elemento == hector) {
+			elemento.cosechar(maiz)
 		}
 	})
 	game.whenCollideDo(alpiste, { elemento =>

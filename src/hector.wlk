@@ -4,6 +4,9 @@ import cosechas.*
 object hector {
 
 	var property position = game.at(3, 3)
+	var property paraVender = []
+	var property oro = 0
+	var property cantidadDePlantas = 0
 
 	method image() = "player.png"
 	
@@ -23,14 +26,32 @@ object hector {
 	}
 	
 	method sembraMaiz() {
-		self.deja(new Maiz())		
+		if(not self.hayAlgo()){
+			self.deja(new Maiz())
+		}
+		else{
+			self.yaTengoCosechaAqui()
+		}
 	}
 	method sembraTrigo() {
-		self.deja(new Trigo())		
+		if(not self.hayAlgo()){
+			self.deja(new Trigo())	
+		}
+		else{
+			self.yaTengoCosechaAqui()
+		}	
 	}
 	method sembraTomaco() {
-		self.deja(new Tomaco())		
+		if(not self.hayAlgo()){
+			self.deja(new Tomaco())		
+		}
+		else{
+			self.yaTengoCosechaAqui()
+		}	
 	}
+	method yaTengoCosechaAqui(){game.say(self,"Ya hay una cosecha aqui")}
+	
+	method hayAlgo() = not game.colliders(self).isEmpty()
 	
 	method rega(){
 		if (self.tengoAlgoParaRegar())
@@ -45,7 +66,38 @@ object hector {
 	method regaYa(){
 		game.colliders(self).first().regate()
 	}
+	
+	method cosecha(){
+		if(self.hayAlgo()){
+			if(self.cosechaEnLaQueEstoyParada().esCosechable()){
+				paraVender.add(self.cosechaEnLaQueEstoyParada())
+				game.removeVisual(self.cosechaEnLaQueEstoyParada())
+			}
+			else{
+				game.say(self, "Todavia no esta lista")
+			}
+		}
+		else{
+			game.say(self, "No tengo nada para cosechar!!!")
+		}
+	}
+	
+	method cosechaEnLaQueEstoyParada() = game.colliders(self).first()
+	
+	method vende(){
+		oro = oro + self.total()
+		paraVender.clear()	
+	}
+	
+	method total() =
+		paraVender.sum{planta => planta.precio()}
+	
+	method reporte(){
+		game.say(self,"Tengo "+oro+"monedas, y "+self.contarPlantas()+" plantas para vender")
+	}
 
+	method contarPlantas() = paraVender.size()
+		
 	/*method come(comida) {
 		energia = energia + comida.energia()
 		self.seMurio()

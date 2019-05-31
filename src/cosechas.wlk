@@ -3,7 +3,7 @@ import hector.*
 
 class Maiz {
 
-	var property position
+	var property position = game.at(20, 20)
 	var property image = "corn_baby.png"
 
 	//method image() = "corn_baby.png"
@@ -11,6 +11,10 @@ class Maiz {
 	method regate(){
 		self.image("corn_adult.png")
 	}
+	
+	method esCosechable() = image == "corn_adult.png"
+	
+	method precio() = 150
 
 	/*method energia() = 80
 
@@ -27,10 +31,10 @@ class Maiz {
 		})*/
 	/*method apareceDondeRoque() {
 		game.removeVisual(self)
-	}*/
+	}
 	method teChoco(persona){
 		persona.come(self)
-	}
+	}*/
 
 }
 
@@ -55,6 +59,10 @@ class Trigo {
 		if(etapa == 4)
 			{etapa = 0}
 	}
+	
+	method esCosechable() = etapa>=2
+	
+	method precio() = (etapa - 1) * 100
 	/*method energia() = 0.5 * granos
 
 	method aparecerEnTablero() {
@@ -76,12 +84,26 @@ class Tomaco {
 
 	method image() = "tomaco.png"
 	
-	method regate() =
-		if(position.y() == 9)
-			{position = game.at(position.x(),0)}
-		else
-			{self.position(self.position().up(1))}
+	method regate() {
+		if(position.y() == 9){
+			position = game.at(position.x(),0)
+			self.choque()
+		}
+		else{
+			self.position(self.position().up(1))
+			self.choque()
+		}
+	}
 	
+	method choque(){
+		if(not game.colliders(self).isEmpty()){
+			self.regate()
+		}
+	}	
+	
+	method esCosechable() = true
+	
+	method precio() = 80
 
 	/*method energia() = 0.5 * granos
 
