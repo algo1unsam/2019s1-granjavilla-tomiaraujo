@@ -15,7 +15,7 @@ class Mercado {
 	method esMercado() = true
 	
 	method vendio(){
-		dinero -= hector.oro()
+		dinero -= hector.total()
 		mercaderia.addAll(hector.paraVender())
 	}
 	
