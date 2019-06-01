@@ -1,9 +1,10 @@
 import wollok.game.*
 import hector.*
+import mercados.*
 
 class Maiz {
 
-	var property position = game.at(20, 20)
+	var property position
 	var property image = "corn_baby.png"
 
 	//method image() = "corn_baby.png"
@@ -15,26 +16,8 @@ class Maiz {
 	method esCosechable() = image == "corn_adult.png"
 	
 	method precio() = 150
-
-	/*method energia() = 80
-
-	method aparecerEnTablero() {
-		self.position(game.at(1.randomUpTo(10).truncate(0), 1.randomUpTo(10).truncate(0)))
-		game.addVisual(self)
-		game.whenCollideDo(self, { elemento =>
-			if (elemento == roque) roque.levantar(self)
-		})
-		
-	}*/
-	/*game.whenCollideDo(self, { cosa =>
-			if (cosa == pepita) pepita.come(self)
-		})*/
-	/*method apareceDondeRoque() {
-		game.removeVisual(self)
-	}
-	method teChoco(persona){
-		persona.come(self)
-	}*/
+	
+	method esMercado() = false
 
 }
 
@@ -46,8 +29,6 @@ class Trigo {
 	var property image = "wheat_0.png"
 	
 	var etapa = 0
-
-	//method image() = "wheat_0.png"
 	
 	method regate(){
 		self.cambiarEtapa()
@@ -63,19 +44,9 @@ class Trigo {
 	method esCosechable() = etapa>=2
 	
 	method precio() = (etapa - 1) * 100
-	/*method energia() = 0.5 * granos
-
-	method aparecerEnTablero() {
-		self.position(game.at(1.randomUpTo(10).truncate(0), 1.randomUpTo(10).truncate(0)))
-		game.addVisual(self)
-		game.whenCollideDo(self, { elemento =>
-			if (elemento == roque) roque.levantar(self)
-		})
-	}
-	method teChoco(persona){
-		persona.come(self)
-	}*/
-
+	
+	method esMercado() = false
+	
 }
 
 class Tomaco {
@@ -104,38 +75,7 @@ class Tomaco {
 	method esCosechable() = true
 	
 	method precio() = 80
-
-	/*method energia() = 0.5 * granos
-
-	method aparecerEnTablero() {
-		self.position(game.at(1.randomUpTo(10).truncate(0), 1.randomUpTo(10).truncate(0)))
-		game.addVisual(self)
-		game.whenCollideDo(self, { elemento =>
-			if (elemento == roque) roque.levantar(self)
-		})
-	}
-	method teChoco(persona){
-		persona.come(self)
-	}*/
+	
+	method esMercado() = false
 
 }
-
-
-
-//object sinComida {}
-
-/*object veneno{var property position = game.at(8, 8)
-
-	method image() = "veneno.png"
-
-	method energia() = -100000
-
-	method aparecerEnTablero() {
-		self.position(game.at(1.randomUpTo(10).truncate(0), 1.randomUpTo(10).truncate(0)))
-		game.addVisual(self)
-		game.whenCollideDo(self, { elemento =>
-			if (elemento == roque) roque.levantar(self)
-		})
-	}
-	
-}*/

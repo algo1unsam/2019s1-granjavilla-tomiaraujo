@@ -1,5 +1,6 @@
 import wollok.game.*
 import cosechas.*
+import mercados.*
 
 object hector {
 
@@ -49,20 +50,18 @@ object hector {
 			self.yaTengoCosechaAqui()
 		}	
 	}
-	method yaTengoCosechaAqui(){game.say(self,"Ya hay una cosecha aqui")}
+	method yaTengoCosechaAqui(){game.say(self,"No puedo cosechar aqui")}
 	
 	method hayAlgo() = not game.colliders(self).isEmpty()
 	
 	method rega(){
-		if (self.tengoAlgoParaRegar())
+		if (self.hayAlgo())
 			{self.regaYa()}
 		else
 			//{self.error("No tengo nada para regar!!!")}
 			{game.say(self, "No tengo nada para regar!!!")}
 	}
-	
-	method tengoAlgoParaRegar() = not game.colliders(self).isEmpty()
-		
+			
 	method regaYa(){
 		game.colliders(self).first().regate()
 	}
@@ -74,7 +73,7 @@ object hector {
 				game.removeVisual(self.cosechaEnLaQueEstoyParada())
 			}
 			else{
-				game.say(self, "Todavia no esta lista")
+				game.say(self, "No se puede")
 			}
 		}
 		else{
@@ -85,8 +84,20 @@ object hector {
 	method cosechaEnLaQueEstoyParada() = game.colliders(self).first()
 	
 	method vende(){
-		oro = oro + self.total()
-		paraVender.clear()	
+		if(paraVender.isEmpty()){
+			game.say(self, "No tengo nada para vender")
+		}
+		else{
+			if(not self.hayAlgo() or not game.colliders(self).first().esMercado()){
+				game.say(self, "No puedo vender aqui")
+			}
+			else{		
+				oro = oro + self.total()
+				game.colliders(self).first().vendio()				
+				paraVender.clear()
+				game.say(self, "Transaccion finalizada")			
+			}
+		}
 	}
 	
 	method total() =
@@ -97,53 +108,5 @@ object hector {
 	}
 
 	method contarPlantas() = paraVender.size()
-		
-	/*method come(comida) {
-		energia = energia + comida.energia()
-		self.seMurio()
-		game.removeVisual(comida)
-	}
 
-	method seMurio() {
-		if (self.estaMuerta()) gameOver.terminarJuego()
-	}
-
-	method volaYCome(comida) {
-		self.move(comida.position())
-		self.llegoAComidaEnTablero(comida)
-	}
-
-	method llegoAComidaEnTablero(comida) {
-		if (self.mismaPosicion(comida.position())) {
-			self.come(comida)
-			game.removeVisual(comida)
-			comida.aparecerEnTablero()
-		}
-	}
-
-	method volaHacia(unaCiudad) {
-		if (ciudad != unaCiudad) {
-			self.move(unaCiudad.position())
-			if (self.mismaPosicion(unaCiudad.position())) ciudad = unaCiudad
-		} else game.say(self, "Ya estoy " + unaCiudad + "!!!!")
-	}
-
-	method energiaParaVolar(distancia) = 15 + 5 * distancia
-
-	method tieneEnergiaParaVolar(nuevaPosicion) = energia >= self.energiaParaVolar(position.distance(nuevaPosicion))
-
-	method move(nuevaPosicion) {
-		if (not self.mismaPosicion(nuevaPosicion)) {
-			if (self.tieneEnergiaParaVolar(nuevaPosicion)) {
-				energia -= self.energiaParaVolar(position.distance(nuevaPosicion))
-				self.position(nuevaPosicion)
-				ciudad = afueras
-			} else game.say(self, "Dame de comer Primero")
-		}
-	}
-	
-	method saludar(){
-		game.say(self, "Hola ROCKY!")
-	}
-*/
 }
