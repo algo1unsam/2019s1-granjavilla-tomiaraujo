@@ -1,0 +1,41 @@
+import hector.*
+import cosechas.*
+import wollok.game.*
+import mercados.*
+
+program FarmvilleGame {
+	const mercado1 = new Mercado(position = game.at(1, 9), dinero = 100000)
+	const mercado2 = new Mercado(position = game.at(4, 9), dinero = 200000)
+	const mercado3 = new Mercado(position = game.at(7, 9), dinero = 300000)
+//	CONFIG	
+	game.title("Farmville")
+	game.height(10)
+	game.width(10)
+	game.ground("ground.png")
+//	VISUALES
+	game.addVisual(mercado1)
+	game.addVisual(mercado2)
+	game.addVisual(mercado3)
+	game.addVisual(hector)
+//	TECLADO
+	keyboard.h().onPressDo{ game.say(hector, "Hola chiques!") }
+	keyboard.up().onPressDo{ hector.move(hector.position().up(1)) }
+	keyboard.down().onPressDo{ hector.move(hector.position().down(1)) }
+	keyboard.left().onPressDo{ hector.move(hector.position().left(1)) }
+	keyboard.right().onPressDo{ hector.move(hector.position().right(1)) }
+	keyboard.m().onPressDo{ hector.sembraMaiz() }
+	keyboard.t().onPressDo{ hector.sembraTrigo() }
+	keyboard.o().onPressDo{ hector.sembraTomaco() }
+	keyboard.c().onPressDo{ hector.cosecha() }
+	keyboard.space().onPressDo{ hector.reporte() }
+	keyboard.a().onPressDo{ mercado1.reporte() }
+	keyboard.s().onPressDo{ mercado2.reporte() }
+	keyboard.d().onPressDo{ mercado3.reporte() }
+	keyboard.r().onPressDo{ hector.rega() }
+	keyboard.v().onPressDo{ hector.vende() }
+	
+	//keyboard.any().onPressDo{ if (gameOver.esGameOver()) gameOver.limpiarPantalla()}
+	
+//	START
+	game.start()
+}
